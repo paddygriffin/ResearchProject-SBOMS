@@ -44,19 +44,19 @@ jobs:
         run: |
           curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 
-      - name: Generate SBOM
-        run: |
-          echo "Generating SBOM..."
-          syft . -o cyclonedx-json > sbom.json
-          echo "SBOM generated: sbom.json"
-      
-      - name: Upload SBOM
-        uses: actions/upload-artifact@v3
-        with:
-          name: sbom
-          path: sbom.json
-
-      - name: Check for vulnerabilities
-        run: |
-            echo "Checking for vulnerabilities..."
-            # Add your vulnerability check command here
+    #  - name: Generate SBOM
+    #    run: |
+    #      echo "Generating SBOM..."
+    #      syft . -o cyclonedx-json > sbom.json
+    #      echo "SBOM generated: sbom.json"
+    #  
+    #  - name: Upload SBOM
+    #    uses: actions/upload-artifact@v3
+    #    with:
+    #      name: sbom
+    #      path: sbom.json
+#
+    #  - name: Check for vulnerabilities
+    #    run: |
+    #        echo "Checking for vulnerabilities..."
+    #        # Add your vulnerability check command here
