@@ -62,8 +62,28 @@ jobs:
         with:
           name: formatted-sbom
           path: formatted-sbom.json
-#
-    #  - name: Check for vulnerabilities
+    
+          #approach 2
+      - name: Install SBOM tool
+        run: pipx install cyclonedx-bom
+      
+      - name: Create SBOM step
+        # see for usage: https://pypi.org/project/cyclonedx-bom/
+        run: cyclonedx-py -i requirements.txt -o sbom-cli.json
+        
+      - name: Generate Python SBOM
+        uses: CycloneDX/gh-python-generate-sbom@v2
+        with:
+          input: simple-python-app/requirements.txt
+          output: ./sbom-action.json
+          format: json
+          
+      - name: Upload SBOM (Action)
+        uses: actions/upload-artifact@v3
+        with:
+          name: sbom-action
+          path: sbom-action.json
+          #  - name: Check for vulnerabilities
     #    run: |
     #        echo "Checking for vulnerabilities..."
     #        # Add your vulnerability check command here
