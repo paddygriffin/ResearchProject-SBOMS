@@ -74,9 +74,11 @@ jobs:
       - name: Generate Python SBOM cyclonedx-bom
         uses: CycloneDX/gh-python-generate-sbom@v2
         with:
-          input: requirements #./simple-python-app/requirements.txt
+          input: ./requirements.txt #./simple-python-app/requirements.txt
           output: ./sbom-action.json
           format: json
+
+        
           
       - name: Upload SBOM (Action)
         uses: actions/upload-artifact@v4.6.2
