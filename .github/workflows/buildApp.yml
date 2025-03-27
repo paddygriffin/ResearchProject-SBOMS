@@ -33,7 +33,6 @@ jobs:
       - name: Build executable
         run: |
           pyinstaller --onefile src/main.py
-          mv dist/main dist/main
 
       - name: Upload executable
         uses: actions/upload-artifact@v4.6.2
