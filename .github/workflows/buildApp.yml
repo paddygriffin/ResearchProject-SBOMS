@@ -49,12 +49,12 @@ jobs:
           echo "Generating SBOM..."
           syft . -o cyclonedx-json > sbom.json
           echo "SBOM generated: sbom.json"
-    #  
-    #  - name: Upload SBOM
-    #    uses: actions/upload-artifact@v3
-    #    with:
-    #      name: sbom
-    #      path: sbom.json
+      
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: sbom
+          path: sbom.json
 #
     #  - name: Check for vulnerabilities
     #    run: |
