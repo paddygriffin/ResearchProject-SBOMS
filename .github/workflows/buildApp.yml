@@ -29,15 +29,13 @@ jobs:
       - name: Build executable
         run: |
           pyinstaller --onefile src/main.py
-
-      - name: Debug file existence
-        run: ls -l dist/
-
+          mv dist/main dist/main
+          
       - name: Upload executable
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3
         with:
           name: my-executable
-          path: dist\main
+          path: dist/main
 
       - name: Generate SBOM
         run: |
