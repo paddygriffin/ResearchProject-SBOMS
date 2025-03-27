@@ -1,0 +1,26 @@
+version: '2.1'
+jobs:
+  sbom:
+    docker:
+      - image: python:3.9
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            pip install -r requirements.txt
+      - run:
+          name: Generate SBOM
+          command: |
+            pip-audit --output-format=csv --fail-on-vulnerabilities
+      - run:
+          name: Fail if vulnerabilities are found
+          command: |
+            if [ -s sbom.csv ]; then
+              echo "Vulnerabilities found! Failing the build."
+              exit 1
+            fi
+      - persist_to_workspace:
+          root: .
+          paths:
+            - sbom.csv
