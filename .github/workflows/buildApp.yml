@@ -34,7 +34,7 @@ jobs:
         run: ls -l dist/
 
       - name: Upload executable
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: my-executable
           path: dist\main
