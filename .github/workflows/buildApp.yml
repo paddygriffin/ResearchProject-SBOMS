@@ -79,7 +79,7 @@ jobs:
           format: json
           
       - name: Upload SBOM (Action)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: sbom-action
           path: sbom-action.json
