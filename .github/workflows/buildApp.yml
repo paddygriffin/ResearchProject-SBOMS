@@ -32,7 +32,7 @@ jobs:
 
       - name: Build executable
         run: |
-          pyinstaller --onefile src/main.py
+          pyinstaller --onefile simple-python-app/src/main.py
 
       - name: Upload executable
         uses: actions/upload-artifact@v4.6.2
