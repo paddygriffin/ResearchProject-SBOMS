@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-executable
-          path: dist\main.exe
+          path: dist\main
 
       - name: Generate SBOM
         run: |
