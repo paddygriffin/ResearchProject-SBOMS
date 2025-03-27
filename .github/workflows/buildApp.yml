@@ -32,7 +32,7 @@ jobs:
           mv dist/main dist/main
           
       - name: Upload executable
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: my-executable
           path: dist/main
