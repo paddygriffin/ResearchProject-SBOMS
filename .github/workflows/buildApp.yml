@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my-executable
-          path: dist/main  # Update this to match the actual file name
+          path: src\main.py
 
       - name: Generate SBOM
         run: |
