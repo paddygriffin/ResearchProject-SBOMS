@@ -80,6 +80,8 @@ jobs:
           input: ./simple-python-app/requirements.txt
           output: ./sbom-action.json
           format: json
+
+        
           
       - name: Upload SBOM (Action)
         uses: actions/upload-artifact@v4.6.2
