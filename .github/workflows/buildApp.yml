@@ -64,11 +64,9 @@ jobs:
           path: formatted-sbom.json
     
         #approach 2 cyclonedx-bom tool
-      - name: Install pipx (cyclonedx-bom)
-        run: pip install pipx 
 
       - name: Install SBOM tool (cyclonedx-bom)
-        run: pipx install cyclonedx-bom
+        run: pip install cyclonedx-bom
       
       #- name: Create SBOM step cyclonedx-bom
         # see for usage: https://pypi.org/project/cyclonedx-bom/
@@ -77,7 +75,7 @@ jobs:
       - name: Generate Python SBOM cyclonedx-bom
         uses: CycloneDX/gh-python-generate-sbom@v2
         with:
-          input: ./simple-python-app/requirements.txt
+          input: simple-python-app/requirements.txt
           output: ./sbom-action.json
           format: json
 
