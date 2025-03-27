@@ -60,8 +60,8 @@ jobs:
       - name: Upload SBOM
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: sbom
-          path: sbom.json
+          name: formatted-sbom
+          path: formatted-sbom.json
 #
     #  - name: Check for vulnerabilities
     #    run: |
