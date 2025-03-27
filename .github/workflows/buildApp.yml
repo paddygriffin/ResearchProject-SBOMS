@@ -23,26 +23,28 @@ jobs:
 
       - name: Run tests
         run: |
-          # Add your test command here
           echo "Running tests..."
+          # Add your test command here
 
       - name: Build executable
         run: |
-          # Add your build command here
-          echo "Building executable..."
+          pyinstaller --onefile src/main.py
+
+      - name: Debug file existence
+        run: ls -l dist/
 
       - name: Upload executable
         uses: actions/upload-artifact@v2
         with:
           name: my-executable
-          path: path/to/executable
+          path: dist/main  # Update this to match the actual file name
 
       - name: Generate SBOM
         run: |
-          # Add your SBOM generation command here
           echo "Generating SBOM..."
+          # Add your SBOM generation command here
 
       - name: Check for vulnerabilities
         run: |
-          # Add your vulnerability check command here
           echo "Checking for vulnerabilities..."
+          # Add your vulnerability check command here
