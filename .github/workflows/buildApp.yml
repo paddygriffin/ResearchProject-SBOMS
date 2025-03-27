@@ -39,7 +39,11 @@ jobs:
         with:
           name: my-executable
           path: dist/main
-
+          
+      - name: Install Syft for SBOM generation
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+          
       - name: Generate SBOM
         run: |
           echo "Generating SBOM..."
