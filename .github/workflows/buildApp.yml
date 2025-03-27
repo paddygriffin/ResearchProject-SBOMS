@@ -69,7 +69,7 @@ jobs:
       
       - name: Create SBOM step
         # see for usage: https://pypi.org/project/cyclonedx-bom/
-        run: cyclonedx-py requirements -i requirements.txt -o sbom-cli.json
+        run: cyclonedx-py requirements -i simple-python-app/requirements.txt -o sbom-cli.json
         
       - name: Generate Python SBOM
         uses: CycloneDX/gh-python-generate-sbom@v2
