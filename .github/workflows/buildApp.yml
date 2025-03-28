@@ -40,28 +40,28 @@ jobs:
           name: my-executable
           path: dist/main
           
-      - name: Install Syft for SBOM generation
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
-
-      - name: Generate SBOM syft
-        run: |
-          echo "Generating SBOM..."
-          syft . -o cyclonedx-json > sbom.json
-          echo "SBOM generated: sbom.json"
-
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
-      - name: Format SBOM syft
-        run: |
-          jq . sbom.json > formatted-sbom.json
-      
-      - name: Upload SBOM syft
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: formatted-sbom
-          path: formatted-sbom.json
+  #    - name: Install Syft for SBOM generation
+  #      run: |
+  #        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+#
+  #    - name: Generate SBOM syft
+  #      run: |
+  #        echo "Generating SBOM..."
+  #        syft . -o cyclonedx-json > sbom.json
+  #        echo "SBOM generated: sbom.json"
+#
+  #    - name: Install jq
+  #      run: sudo apt-get install -y jq
+#
+  #    - name: Format SBOM syft
+  #      run: |
+  #        jq . sbom.json > formatted-sbom.json
+  #    
+  #    - name: Upload SBOM syft
+  #      uses: actions/upload-artifact@v4.6.2
+  #      with:
+  #        name: formatted-sbom
+  #        path: formatted-sbom.json
     
         #approach 2 cyclonedx-bom tool
 
