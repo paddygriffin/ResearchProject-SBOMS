@@ -64,9 +64,8 @@ jobs:
         #Scan dependencies for vulnerabilities
       - name: Install JFrog CLI
         run: |
-          curl -fL https://getcli.jfrog.io | sh
-          chmod +x jfrog
-          sudo mv jfrog /usr/local/bin/
+          curl -fL https://install-cli.jfrog.io | sh
+          jfrog --version
          
       - name: Configure JFrog CLI
         run: |
