@@ -69,10 +69,11 @@ jobs:
          
       - name: Configure JFrog CLI
         run: |
-          jf config add --url=${{ secrets.ARTIFACTORY_URL }} \
-                           --user=${{ secrets.ARTIFACTORY_USERNAME }} \
-                           --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
-                           --interactive=false
+          jf config add my-server \ 
+            --url=${{ secrets.ARTIFACTORY_URL }} \
+            --user=${{ secrets.ARTIFACTORY_USERNAME }} \
+            --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
+            --interactive=false
       
       - name: version
         run: |
