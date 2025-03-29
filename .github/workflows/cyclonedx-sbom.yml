@@ -77,7 +77,7 @@ jobs:
       
       - name: version
         run: |
-          jfrog --version
+          jf --version
           
       - name: Upload dependencies to Artifactory 
         run: |
