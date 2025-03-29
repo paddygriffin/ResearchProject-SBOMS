@@ -78,14 +78,14 @@ jobs:
       - name: version
         run: |
           jfrog --version
-          
-      - name: Upload dependencies to Artifactory 
-        run: |
-          jfrog rt u "simple-python-app/requirements.txt" "my-repo/python-apps/requirements.txt"
+     #works but not needed yet     
+     # - name: Upload dependencies to Artifactory 
+     #   run: |
+     #     jfrog rt u "simple-python-app/requirements.txt" "my-repo/python-apps/requirements.txt"
 
       - name: Scan dependencies with JFrog Xray
         run: |
-          jfrog scan "my-repo/python-apps/requirements.txt" || exit 1
+          jfrog xr scan "my-repo/python-apps/requirements.txt" || exit 1
 
       - name: Upload SBOM to Artifactory
         run: |
