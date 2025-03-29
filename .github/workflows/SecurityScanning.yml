@@ -1,0 +1,81 @@
+name: Build and Scan Python Application
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r simple-python-app/requirements.txt
+
+      - name: Install PyInstaller
+        run: |
+          python -m pip install pyinstaller
+
+      - name: Build executable
+        run: |
+          pyinstaller --onefile simple-python-app/src/main.py
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: my-executable
+          path: dist/main
+
+      - name: Install SBOM tool (cyclonedx-bom)
+        run: pip install cyclonedx-bom
+
+      - name: Create SBOM step cyclonedx-bom
+        run: cyclonedx-py requirements simple-python-app/requirements.txt -o ./sbom-action.json
+
+      - name: Upload SBOM (Action)
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: sbom-action
+          path: sbom-action.json
+
+      - name: Install JFrog CLI
+        run: |
+          curl -fL https://getcli.jfrog.io | sh
+          chmod +x jfrog
+          sudo mv jfrog /usr/local/bin/
+
+      - name: Configure JFrog CLI
+        run: |
+          jfrog rt config --url=${{ secrets.ARTIFACTORY_URL }} \
+                          --user=${{ secrets.ARTIFACTORY_USERNAME }} \
+                          --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
+                          --interactive=false
+
+      - name: Add dependencies to build
+        run: |
+          jf rt build-add-dependencies my-build-name 1 "simple-python-app/requirements.txt"
+
+      - name: Publish build to Artifactory
+        run: |
+          jf rt build-publish my-build-name 1
+
+      - name: Scan build with JFrog Xray
+        run: |
+          jf rt build-scan my-build-name 1 || exit 1
+
+      - name: Install Grype
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Scan SBOM with Grype
+        run: |
+          grype sbom:sbom-action.json || exit 1
