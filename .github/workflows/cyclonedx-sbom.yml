@@ -77,7 +77,7 @@ jobs:
       
       - name: version
         run: |
-          jf --version
+          jfrog --version
           
       - name: Upload dependencies to Artifactory 
         run: |
@@ -85,7 +85,7 @@ jobs:
 
       - name: Scan dependencies with JFrog Xray
         run: |
-          jfrog xr scan "my-repo/python-apps/requirements.txt"
+          jfrog scan "my-repo/python-apps/requirements.txt" || exit 1
 
       - name: Upload SBOM to Artifactory
         run: |
