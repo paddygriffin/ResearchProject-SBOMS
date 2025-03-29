@@ -72,7 +72,7 @@ jobs:
           jf config add my-server \ 
             --url=${{ secrets.ARTIFACTORY_URL }} \
             --user=${{ secrets.ARTIFACTORY_USERNAME }} \
-            --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
+            --password=${{ secrets.ARTIFACTORY_API_KEY }} \
             --interactive=false
       
       - name: version
