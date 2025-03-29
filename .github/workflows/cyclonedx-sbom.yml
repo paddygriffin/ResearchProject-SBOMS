@@ -65,18 +65,18 @@ jobs:
       - name: Install JFrog CLI
         run: |
           curl -fL https://install-cli.jfrog.io | sh
-          jfrog --version
+          jf --version
          
       - name: Configure JFrog CLI
         run: |
-          jfrog config add --url=${{ secrets.ARTIFACTORY_URL }} \
+          jf config add --url=${{ secrets.ARTIFACTORY_URL }} \
                            --user=${{ secrets.ARTIFACTORY_USERNAME }} \
                            --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
                            --interactive=false
       
       - name: version
         run: |
-          jfrog --version
+          jf --version
      #works but not needed yet     
      # - name: Upload dependencies to Artifactory 
      #   run: |
@@ -96,20 +96,20 @@ jobs:
 
       - name: Add dependencies to build
         run: |
-          jfrog rt build-add-dependencies my-build-name 1 "simple-python-app/requirements.txt"
+          jf rt build-add-dependencies my-build-name 1 "simple-python-app/requirements.txt"
 
       - name: Publish build to Artifactory
         run: |
-          jfrog rt build-publish my-build-name 1
+          jf rt build-publish my-build-name 1
             
       - name: Scan build with JFrog Xray
         run: |
-          jfrog rt build-scan my-build-name 1 || exit 1
+          jf rt build-scan my-build-name 1 || exit 1
 
       - name: Upload SBOM to Artifactory
         run: |
-          jfrog rt u "sbom-action.json" "my-repo/sboms/sbom-action.json"
+          jf rt u "sbom-action.json" "my-repo/sboms/sbom-action.json"
       
       - name: Scan SBOM with JFrog Xray
         run: |
-          jfrog rt xray-scan "my-repo/sboms/sbom-action.json" || exit 1
+          jf rt xray-scan "my-repo/sboms/sbom-action.json" || exit 1
