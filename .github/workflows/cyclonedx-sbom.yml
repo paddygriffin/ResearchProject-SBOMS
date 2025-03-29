@@ -70,7 +70,7 @@ jobs:
          
       - name: Configure JFrog CLI
         run: |
-          jfrog rt config --url=${{ secrets.ARTIFACTORY_URL }} \
+          jfrog config add --url=${{ secrets.ARTIFACTORY_URL }} \
                           --user=${{ secrets.ARTIFACTORY_USERNAME }} \
                           --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
                           --interactive=false
