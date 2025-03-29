@@ -74,6 +74,10 @@ jobs:
                           --user=${{ secrets.ARTIFACTORY_USERNAME }} \
                           --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
                           --interactive=false
+      
+      - name: version
+        run: |
+          jfrog --version
           
       - name: Upload dependencies to Artifactory 
         run: |
@@ -81,7 +85,7 @@ jobs:
 
       - name: Scan dependencies with JFrog Xray
         run: |
-          jfrog xr scan "my-repo/python-apps/requirements.txt" || exit 1
+          jfrog xr scan "my-repo/python-apps/requirements.txt"
 
       - name: Upload SBOM to Artifactory
         run: |
