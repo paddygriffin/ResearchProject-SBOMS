@@ -78,4 +78,4 @@ jobs:
 
       - name: Scan SBOM with Grype
         run: |
-          grype sbom:sbom-action.json || exit 1
+          grype sbom:sbom-action.json --fail-on high || exit 1
