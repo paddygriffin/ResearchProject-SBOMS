@@ -75,7 +75,7 @@ jobs:
                           --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
                           --interactive=false
           
-      - name: Upload dependencies to Artifactory
+      - name: Upload dependencies to Artifactory 
         run: |
           jfrog rt u "simple-python-app/requirements.txt" "my-repo/python-apps/requirements.txt"
 
