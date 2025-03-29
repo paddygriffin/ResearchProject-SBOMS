@@ -55,7 +55,8 @@ jobs:
         with:
           name: sbom-action
           path: sbom-action.json
-          #  - name: Check for vulnerabilities
-    #    run: |
-    #        echo "Checking for vulnerabilities..."
-    #        # Add your vulnerability check command here
+          
+      - name: Check for vulnerabilities
+        run: |
+            echo "Checking for vulnerabilities..."
+            # Add your vulnerability check command here
