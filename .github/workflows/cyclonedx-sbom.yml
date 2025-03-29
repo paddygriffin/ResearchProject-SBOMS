@@ -83,14 +83,26 @@ jobs:
      #   run: |
      #     jfrog rt u "simple-python-app/requirements.txt" "my-repo/python-apps/requirements.txt"
 
-      - name: Scan dependencies with JFrog Xray
-        run: |
-          jfrog xr scan "my-repo/python-apps/requirements.txt" || exit 1
+     # - name: Scan dependencies with JFrog Xray
+     #   run: |
+     #     jfrog xr scan "my-repo/python-apps/requirements.txt" || exit 1
+#
+     # - name: Upload SBOM to Artifactory
+     #   run: |
+     #     jfrog rt u "sbom-action.json" "my-repo/sboms/sbom-action.json"
+#
+     # - name: Scan SBOM with JFrog Xray
+     #   run: |
+     #     jfrog xr scan "my-repo/sboms/sbom-action.json" || exit 1
 
-      - name: Upload SBOM to Artifactory
+      - name: Add dependencies to build
         run: |
-          jfrog rt u "sbom-action.json" "my-repo/sboms/sbom-action.json"
+          jfrog rt build-add-dependencies my-build-name 1 "simple-python-app/requirements.txt"
 
-      - name: Scan SBOM with JFrog Xray
+      - name: Publish build to Artifactory
         run: |
-          jfrog xr scan "my-repo/sboms/sbom-action.json" || exit 1
+          jfrog rt build-publish my-build-name 1
+            
+      - name: Scan build with JFrog Xray
+        run: |
+          jfrog rt build-scan my-build-name 1 || exit 1
