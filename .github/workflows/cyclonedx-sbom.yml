@@ -60,3 +60,33 @@ jobs:
         run: |
             echo "Checking for vulnerabilities..."
             # Add your vulnerability check command here
+
+        #Scan dependencies for vulnerabilities
+      - name: Install JFrog CLI
+        run: |
+          curl -fL https://getcli.jfrog.io | sh
+          chmod +x jfrog
+          sudo mv jfrog /usr/local/bin/
+         
+      - name: Configure JFrog CLI
+        run: |
+          jfrog rt config --url=${{ secrets.ARTIFACTORY_URL }} \
+                          --user=${{ secrets.ARTIFACTORY_USERNAME }} \
+                          --apikey=${{ secrets.ARTIFACTORY_API_KEY }} \
+                          --interactive=false
+          
+      - name: Upload dependencies to Artifactory
+        run: |
+          jfrog rt u "simple-python-app/requirements.txt" "my-repo/python-apps/requirements.txt"
+
+      - name: Scan dependencies with JFrog Xray
+        run: |
+          jfrog xr scan "my-repo/python-apps/requirements.txt" || exit 1
+
+      - name: Upload SBOM to Artifactory
+        run: |
+          jfrog rt u "sbom-action.json" "my-repo/sboms/sbom-action.json"
+
+      - name: Scan SBOM with JFrog Xray
+        run: |
+          jfrog xr scan "my-repo/sboms/sbom-action.json" || exit 1
