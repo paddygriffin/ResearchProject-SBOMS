@@ -113,4 +113,4 @@ jobs:
       
       - name: Scan SBOM with JFrog Xray
         run: |
-          jf rt xray-scan "my-repo/sboms/sbom-action.json" || exit 1
+          jf xr scan "my-repo/sboms/sbom-action.json" || exit 1
