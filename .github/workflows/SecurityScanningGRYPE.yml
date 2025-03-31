@@ -60,7 +60,7 @@ jobs:
             --password=${{ secrets.ARTIFACTORY_API_KEY }} \
             --interactive=false
 
-      #- name: Add dependencies to build
+      #- name: Add dependencies to build 
       #  run: |
       #    jf rt build-add-dependencies my-build-name 1 "simple-python-app/requirements.txt"
 
