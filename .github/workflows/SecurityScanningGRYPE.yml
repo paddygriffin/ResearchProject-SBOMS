@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.8'
 
@@ -71,7 +71,13 @@ jobs:
       - name: Scan build with JFrog Xray
         run: |
           jf rt build-scan my-build-name 1 || exit 1
-
+        
+      - name: Upload SBOM to Artifactory
+        run: jf rt u sbom-action.json my-repo/sbom-action.json
+  
+      - name: Scan SBOM with JFrog Xray
+        run: jf xr scan --type sbom --sbom-path my-repo/sbom-action.json || exit 1
+      
       - name: Install Grype
         run: |
           curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
