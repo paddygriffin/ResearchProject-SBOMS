@@ -39,13 +39,13 @@ jobs:
         run: pip install cyclonedx-bom
 
       - name: Create SBOM step cyclonedx-bom
-        run: cyclonedx-py requirements simple-python-app/requirements.txt -o ./sbom-action.json
+        run: cyclonedx-py requirements simple-python-app/requirements.txt -o ./sbom-action2.cdx.json
 
       - name: Upload SBOM (Action)
         uses: actions/upload-artifact@v4.6.2
         with:
           name: sbom-action
-          path: sbom-action.json
+          path: sbom-action2.cdx.json
 
       - name: Install JFrog CLI
         run: |
@@ -76,7 +76,7 @@ jobs:
       #  run: jf rt u sbom-action.json my-repo/sbom-action.json
   
       - name: Scan SBOM with JFrog Xray
-        run: jf scan sbom-action.json --format json || exit 1
+        run: jf scan ./sbom-action2.cdx.json --format json || exit 1
       
       - name: Install Grype
         run: |
@@ -84,4 +84,4 @@ jobs:
 
       - name: Scan SBOM with Grype
         run: |
-          grype sbom:sbom-action.json || exit 1
+          grype sbom:sbom-action2.cdx.json|| exit 1
