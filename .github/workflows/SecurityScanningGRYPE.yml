@@ -76,7 +76,7 @@ jobs:
       #  run: jf rt u sbom-action.json my-repo/sbom-action.json
   
       - name: Scan SBOM with JFrog Xray
-        run: jf xr scan ./sbom-action.json --format json || exit 1
+        run: jf scan ./sbom-action.json --format json || exit 1
       
       - name: Install Grype
         run: |
